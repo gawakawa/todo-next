@@ -1,0 +1,44 @@
+name: CI/CD
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.12.0'
+      - run: corepack enable
+      - run: yarn install --immutable
+      - name: format check
+        run: yarn format:check 
+      - name: lint
+        run: yarn lint
+      - name: test
+        run: yarn test
+
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+
+      - uses: google-github-actions/auth@v1
+        with:
+          credentials_json: "${{ secrets.GCLOUD_AUTH }}"
+
+      - uses: google-github-actions/setup-gcloud@v1
+        with:
+          service_account_key: ${{ secrets.GCLOUD_AUTH }}
+          project_id: ${{ secrets.PROJECT_ID }}
+
+      - run: gcloud auth configure-docker asia-northeast1-docker.pkg.dev
+
+      - run: docker build -f prod.Dockerfile -t asia-northeast1-docker.pkg.dev/${{ secrets.PROJECT_ID }}/fullstack-next-images/next-iamge .
+
+      - run: docker push asia-northeast1-docker.pkg.dev/${{ secrets.PROJECT_ID }}/fullstack-next-images/next-iamge
