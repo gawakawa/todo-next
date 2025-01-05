@@ -6,8 +6,8 @@ services:
       dockerfile: dev.Dockerfile
 
     environment:
-      - ENV_VARIABLE: ${ENV_VARIABLE}
-      - NEXT_PUBLIC_ENV_VARIABLE: ${NEXT_PUBLIC_ENV_VARIABLE}
+      ENV_VARIABLE: ${ENV_VARIABLE}
+      NEXT_PUBLIC_ENV_VARIABLE: ${NEXT_PUBLIC_ENV_VARIABLE}
 
     env_file:
       - .env
