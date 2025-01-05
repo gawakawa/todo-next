@@ -39,6 +39,15 @@ jobs:
 
       - run: gcloud auth configure-docker asia-northeast1-docker.pkg.dev
 
-      - run: docker build -f prod.Dockerfile -t asia-northeast1-docker.pkg.dev/${{ secrets.PROJECT_ID }}/fullstack-next-images/next-iamge .
+      - run: docker build -f prod.Dockerfile -t asia-northeast1-docker.pkg.dev/${{ secrets.PROJECT_ID }}/fullstack-next-images/next-app .
 
-      - run: docker push asia-northeast1-docker.pkg.dev/${{ secrets.PROJECT_ID }}/fullstack-next-images/next-iamge
+      - run: docker push asia-northeast1-docker.pkg.dev/${{ secrets.PROJECT_ID }}/fullstack-next-images/next-app
+
+      - name: Deploy
+        run: |
+          gcloud run deploy next-app \
+            --project=${{ secrets.PROJECT_ID }} \
+          --image=asia-northeast1-docker.pkg.dev/${{ secrets.PROJECT_ID }}/fullstack-next-images/next-app:latest \
+            --platform=managed \
+            --region=asia-northeast1 \
+            --allow-unauthenticated
