@@ -1,4 +1,4 @@
-FROM node:22.12.0-slim AS base
+FROM node:20-slim AS base
 
 ENV YARN_VERSION 4.6.0
 ENV PORT 3000
