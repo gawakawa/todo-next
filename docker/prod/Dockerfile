@@ -9,21 +9,12 @@ FROM base AS builder
 WORKDIR /app
 
 RUN corepack enable && corepack prepare yarn@${YARN_VERSION}
-COPY .yarn ./.yarn
+COPY .yarn/ ./.yarn/
 COPY .yarnrc.yml ./
 COPY package.json yarn.lock* ./
-RUN yarn install --immutable
+RUN yarn install
 
-COPY src ./src
-COPY public ./public
-COPY next.config.ts .
-COPY tsconfig.json .
-
-ARG ENV_VARIABLE
-ENV ENV_VARIABLE=${ENV_VARIABLE}
-ARG NEXT_PUBLIC_ENV_VARIABLE
-ENV NEXT_PUBLIC_ENV_VARIABLE=${NEXT_PUBLIC_ENV_VARIABLE}
-ENV NEXT_TELEMETRY_DISABLED 1
+COPY . .
 
 RUN yarn build
 
@@ -40,12 +31,6 @@ COPY --from=builder /app/public ./public
 
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
-
-ARG ENV_VARIABLE
-ENV ENV_VARIABLE=${ENV_VARIABLE}
-ARG NEXT_PUBLIC_ENV_VARIABLE
-ENV NEXT_PUBLIC_ENV_VARIABLE=${NEXT_PUBLIC_ENV_VARIABLE}
-ENV NEXT_TELEMETRY_DISABLED 1
 
 EXPOSE ${PORT}
 
