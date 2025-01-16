@@ -9,6 +9,8 @@ FROM base AS builder
 WORKDIR /app
 
 RUN corepack enable && corepack prepare yarn@${YARN_VERSION}
+COPY .yarn ./.yarn
+COPY .yarnrc.yml ./
 COPY package.json yarn.lock* ./
 RUN yarn install --immutable
 
@@ -16,7 +18,6 @@ COPY src ./src
 COPY public ./public
 COPY next.config.ts .
 COPY tsconfig.json .
-COPY . .
 
 ARG ENV_VARIABLE
 ENV ENV_VARIABLE=${ENV_VARIABLE}
