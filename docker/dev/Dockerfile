@@ -1,6 +1,5 @@
-FROM node:22.12.0
+FROM node:20
 
-ENV NEXT_TELEMETRY_DISABLED 1
 ENV YARN_VERSION 4.6.0
 
 WORKDIR /app
@@ -15,5 +14,5 @@ COPY public ./public
 COPY next.config.ts .
 COPY tsconfig.json .
 
-CMD yarn dev
+CMD ["yarn", "dev"]
 
