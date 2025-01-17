@@ -11,11 +11,14 @@ RUN yarn install --immutable
 
 COPY src ./src
 COPY public ./public
+COPY __tests__ ./__tests__
+COPY prisma ./prisma
 COPY next.config.ts .
 COPY tsconfig.json .
 COPY .prettierrc .
 COPY eslint.config.mjs .
 COPY jest.config.ts .
+COPY .stylelintrc .
 COPY postcss.config.mjs .
 COPY tailwind.config.ts .
 
