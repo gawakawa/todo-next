@@ -16,7 +16,7 @@
     "format:check": "prettier --check --ignore-path .gitignore 'src/**/*.{js,ts,jsx,tsx,json}'",
     "test": "jest",
     "test:watch": "jest --watch",
-    "migrate": "dotenv -e .env.development.local -- prisma migrate dev"
+    "prisma": "dotenv -e .env.development.local -- prisma"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
