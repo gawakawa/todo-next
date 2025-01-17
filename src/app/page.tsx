@@ -1,3 +1,9 @@
-export default function Home() {
-  return <h1>Home</h1>
-}
+'use client'
+
+const Home = () => {
+  return (
+    <h1>Home</h1>
+  );
+};
+
+export default Home;
