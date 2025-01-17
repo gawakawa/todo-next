@@ -18,7 +18,7 @@ COPY tsconfig.json .
 COPY .prettierrc .
 COPY eslint.config.mjs .
 COPY jest.config.ts .
-COPY .stylelintrc .
+COPY .stylelintrc.json .
 COPY postcss.config.mjs .
 COPY tailwind.config.ts .
 
