@@ -1,9 +1,9 @@
 'use client'
 
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { TodoFormSchema, TodoFormData } from './types';
-import createTodo from './createTodo';
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { TodoFormSchema, TodoFormData } from './types'
+import createTodo from './createTodo'
 
 const TodoForm = () => {
   const {
@@ -13,12 +13,12 @@ const TodoForm = () => {
     formState: { errors },
   } = useForm<TodoFormData>({
     resolver: zodResolver(TodoFormSchema),
-  });
+  })
 
   const onSubmit = async (data: TodoFormData) => {
     await createTodo(data.title)
     reset()
-  };
+  }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className='space-y-4'>
@@ -37,7 +37,7 @@ const TodoForm = () => {
       </div>
       {errors.title && <span className='block text-sm text-red-500'>{errors.title.message}</span>}
     </form>
-  );
-};
+  )
+}
 
-export default TodoForm;
+export default TodoForm

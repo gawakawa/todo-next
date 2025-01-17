@@ -1,6 +1,6 @@
 'use server'
 
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
@@ -9,7 +9,7 @@ const createTodo = async (title: string) => {
     data: {
       title,
     },
-  });
-};
+  })
+}
 
-export default createTodo;
+export default createTodo
