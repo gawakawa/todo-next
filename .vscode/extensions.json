@@ -1,0 +1,11 @@
+{
+  "recommendations": [
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "stylelint.vscode-stylelint",
+    "yoavbls.pretty-ts-errors"
+  ],
+  "unwantedRecommendations": [
+    "ms-ceintl.vscode-language-pack-ja"
+  ]
+}
