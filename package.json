@@ -21,9 +21,11 @@
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
     "@prisma/client": "6.2.1",
+    "@types/react-csv": "^1.1.10",
     "next": "^15.2.0-canary.15",
     "next-auth": "^4.24.11",
     "react": "^19.0.0",
+    "react-csv": "^2.2.2",
     "react-dom": "^19.0.0",
     "zod": "^3.24.1"
   },
