@@ -1,11 +1,11 @@
-'use server'
+'use server';
 
-import getTodos from './getTodos'
-import { Todo } from './types'
-import TodoForm from './todoForm'
+import getTodos from './getTodos';
+import { Todo } from './types';
+import TodoForm from './todoForm';
 
 const Page = async () => {
-  const todos: Todo[] = await getTodos()
+  const todos: Todo[] = await getTodos();
 
   return (
     <div className='max-w-2xl mx-auto p-6'>
@@ -26,7 +26,7 @@ const Page = async () => {
         ))}
       </ul>
     </div>
-  )
-}
+  );
+};
 
-export default Page
+export default Page;
