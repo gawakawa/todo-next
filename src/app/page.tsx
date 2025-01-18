@@ -4,6 +4,7 @@
 import { useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';
 import Logout from './components/Logout';
+import Image from 'next/image';
 
 export default function Home() {
   const { data: session, status } = useSession({
@@ -29,7 +30,7 @@ export default function Home() {
           <div className='space-y-4'>
             <div className='flex items-center gap-4'>
               {session.user?.image && (
-                <img src={session.user.image} alt='Profile' className='w-16 h-16 rounded-full' />
+                <Image src={session.user.image} alt='Profile' className='w-16 h-16 rounded-full' />
               )}
               <div>
                 <p className='text-xl font-medium text-gray-900'>
