@@ -1,8 +1,8 @@
 'use server';
 
-import getTodos from './getTodos';
-import { Todo } from './types';
-import TodoForm from './todoForm';
+import getTodos from '../../db/getTodos';
+import { Todo } from '../types/Todo';
+import TodoForm from '../components/todoForm';
 import LogoutWrapper from '../components/LogoutWrapper';
 
 const Page = async () => {

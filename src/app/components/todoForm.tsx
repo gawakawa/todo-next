@@ -2,8 +2,8 @@
 
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { TodoFormSchema, TodoFormData } from './types';
-import createTodo from './createTodo';
+import { TodoFormSchema, TodoFormData } from '../types/Todo';
+import createTodo from '../../db/createTodo';
 
 const TodoForm = () => {
   const {
