@@ -2,8 +2,9 @@
 
 import getTodos from '../../db/getTodos';
 import { Todo } from '../types/Todo';
-import TodoForm from '../components/todoForm';
+import TodoForm from '../components/TodoForm';
 import LogoutWrapper from '../components/LogoutWrapper';
+import TodoList from '../components/TodoList';
 
 const Page = async () => {
   const todos: Todo[] = await getTodos();
@@ -19,16 +20,7 @@ const Page = async () => {
           <TodoForm />
         </div>
 
-        <ul className='space-y-4'>
-          {todos.map((todo) => (
-            <li
-              key={todo.id}
-              className='bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow duration-200'
-            >
-              <p className='text-gray-700'>{todo.title}</p>
-            </li>
-          ))}
-        </ul>
+        <TodoList todos={todos} />
       </div>
     </div>
   );
