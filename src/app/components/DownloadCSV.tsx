@@ -35,9 +35,7 @@ const DownloadCSV = ({ todos }: { todos: Todo[] }) => {
         </svg>
         CSV 出力
       </button>
-      {isDownloading && (
-        <CSVDownload data={data} headers={headers} target='_blank' />
-      )}
+      {isDownloading && <CSVDownload data={data} headers={headers} target='_blank' />}
     </>
   );
 };
