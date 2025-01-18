@@ -1,6 +1,6 @@
-'use client'
+'use client';
 
-import { Todo } from "../types/Todo"
+import { Todo } from '../types/Todo';
 
 const TodoList = ({ todos }: { todos: Todo[] }) => {
   return (
