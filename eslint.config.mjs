@@ -17,6 +17,15 @@ const eslintConfig = [
       'next',
       'prettier',
     ],
+    rules: {
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        {
+          'argsIgnorePattern': '^_',
+          'varsIgnorePattern': '^_',
+        },
+      ],
+    },
   }),
 ]
 
