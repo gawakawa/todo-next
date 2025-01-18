@@ -8,7 +8,7 @@ const Home = () => {
   const { status } = useSession();
 
   useEffect(() => {
-    status === 'authenticated' && redirect('/todo');
+    status === 'authenticated' && redirect('/dashboard');
     status === 'unauthenticated' && redirect('/login');
   }, [status]);
 
