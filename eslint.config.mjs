@@ -25,6 +25,12 @@ const eslintConfig = [
           'varsIgnorePattern': '^_',
         },
       ],
+      '@typescript-eslint/no-unused-expression': [
+        'error',
+        {
+          'allowTernary': true,
+        },
+      ],
     },
   }),
 ]
