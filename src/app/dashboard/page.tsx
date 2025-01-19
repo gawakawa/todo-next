@@ -6,7 +6,6 @@ import TodoList from '../components/TodoList';
 import DownloadCSV from '../components/DownloadCSV';
 import CSVImportWrapper from '../components/ImportCSVWrapper';
 
-// src/app/todo/page.tsx
 const Page = async () => {
   const todos: Todo[] = await getTodos();
 
