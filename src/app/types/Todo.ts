@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 export const TodoSchema = z.object({
-  id: z.number().optional(),
+  id: z.number(),
   title: z.string().min(1, '1文字以上で入力してください'),
   completed: z.boolean().default(false),
 });
