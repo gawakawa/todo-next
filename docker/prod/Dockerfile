@@ -1,4 +1,4 @@
-FROM node:20-slim AS base
+FROM node:20 AS base
 
 ENV YARN_VERSION 4.6.0
 ENV PORT 3000
@@ -7,8 +7,6 @@ ENV HOSTNAME "0.0.0.0"
 FROM base AS builder
 
 WORKDIR /app
-
-RUN apt-get update && apt-get install -y openssl ca-certificates
 
 RUN corepack enable && corepack prepare yarn@${YARN_VERSION}
 COPY .yarn/ ./.yarn/
