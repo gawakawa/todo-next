@@ -1,8 +1,7 @@
 'use server';
 
-import { PrismaClient, Todo } from '@prisma/client';
-
-const prisma = new PrismaClient();
+import { Todo } from '@prisma/client';
+import { prisma } from '@/lib/prisma';
 
 type EditTodoParams = Pick<Todo, 'id' | 'title'>;
 

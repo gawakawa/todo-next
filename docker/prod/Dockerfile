@@ -1,4 +1,4 @@
-FROM node:20-slim AS base
+FROM node:20 AS base
 
 ENV YARN_VERSION 4.6.0
 ENV PORT 3000
@@ -12,9 +12,19 @@ RUN corepack enable && corepack prepare yarn@${YARN_VERSION}
 COPY .yarn/ ./.yarn/
 COPY .yarnrc.yml ./
 COPY package.json yarn.lock* ./
+COPY next.config.ts ./ 
+COPY tsconfig.json ./
+COPY public ./public
+COPY prisma ./prisma
+COPY src ./src
+COPY tailwind.config.ts ./
+COPY postcss.config.mjs ./
+COPY .env.production.local .env
+
 RUN yarn install
 
-COPY . .
+RUN yarn dlx prisma generate
+RUN yarn dlx prisma migrate deploy
 
 RUN yarn build
 

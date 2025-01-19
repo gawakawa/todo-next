@@ -1,3 +1,6 @@
+'use client';
+
+import { useState, useEffect } from 'react';
 import getTodos from '../db/getTodos';
 import { Todo } from '../types/Todo';
 import TodoForm from '../components/TodoForm';
@@ -6,8 +9,24 @@ import TodoList from '../components/TodoList';
 import DownloadCSV from '../components/DownloadCSV';
 import CSVImportWrapper from '../components/ImportCSVWrapper';
 
-const Page = async () => {
-  const todos: Todo[] = await getTodos();
+const DashboardPage = () => {
+  const [todos, setTodos] = useState<Todo[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchTodos = async () => {
+      try {
+        const data = await getTodos();
+        setTodos(data);
+      } catch (error) {
+        console.error('Failed to fetch todos:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchTodos();
+  }, []);
 
   return (
     <div className='min-h-screen bg-gray-50'>
@@ -28,11 +47,15 @@ const Page = async () => {
             <TodoForm />
           </div>
 
-          <TodoList todos={todos} />
+          {isLoading ? (
+            <div className='text-center py-4'>Loading...</div>
+          ) : (
+            <TodoList todos={todos} />
+          )}
         </div>
       </div>
     </div>
   );
 };
 
-export default Page;
+export default DashboardPage;
