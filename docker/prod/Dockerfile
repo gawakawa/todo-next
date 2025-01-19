@@ -8,7 +8,7 @@ FROM base AS builder
 
 WORKDIR /app
 
-RUN apt-get update && apt-get install -y openssl
+RUN apt-get update && apt-get install -y openssl ca-certificates
 
 RUN corepack enable && corepack prepare yarn@${YARN_VERSION}
 COPY .yarn/ ./.yarn/
