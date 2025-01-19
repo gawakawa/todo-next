@@ -19,7 +19,7 @@ COPY prisma ./prisma
 COPY src ./src
 COPY tailwind.config.ts ./
 COPY postcss.config.mjs ./
-COPY .env.production.local .env
+# COPY .env.production.local .env
 
 RUN yarn install
 
