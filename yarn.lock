@@ -1584,12 +1584,39 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/papaparse@npm:^5.3.9":
+  version: 5.3.15
+  resolution: "@types/papaparse@npm:5.3.15"
+  dependencies:
+    "@types/node": "npm:*"
+  checksum: 10c0/9333e980b9ed4102f80b1791b6dfefb23fb4d27252b2b6ee6084b2cd847cbe802cfb838d46b4f6b4cb035f9225e0323034c956ee21bbcbcb4cbdb663302d5eeb
+  languageName: node
+  linkType: hard
+
+"@types/react-csv@npm:^1.1.10":
+  version: 1.1.10
+  resolution: "@types/react-csv@npm:1.1.10"
+  dependencies:
+    "@types/react": "npm:*"
+  checksum: 10c0/58d300aacccc70c67d2df538726983b4483f3b446db67687baa0026bd4d562cbb956a47eab49516bbe22b9bf8e9b92d1e28f608361a77b2ffa36825bd9c72295
+  languageName: node
+  linkType: hard
+
 "@types/react-dom@npm:^19":
   version: 19.0.2
   resolution: "@types/react-dom@npm:19.0.2"
   peerDependencies:
     "@types/react": ^19.0.0
   checksum: 10c0/3d0c7b78dbe8df64ea769f30af990a5950173a8321c745fe11094d765423f7964c3519dca6e7cd36b4be6521c8efc690bdd3b79b327b229dd1e9d5a8bad677dd
+  languageName: node
+  linkType: hard
+
+"@types/react@npm:*":
+  version: 19.0.7
+  resolution: "@types/react@npm:19.0.7"
+  dependencies:
+    csstype: "npm:^3.0.2"
+  checksum: 10c0/818e546fa03a2a65ac2652fc472891ac96684211e8967bc25e1da6a8a09e2301ad972b1b038d128f8b4cbbd7691f6f57fee274db568169e9b6b01556abbb5bee
   languageName: node
   linkType: hard
 
@@ -3788,6 +3815,7 @@ __metadata:
     "@types/jest": "npm:^29.5.14"
     "@types/node": "npm:^20"
     "@types/react": "npm:^19"
+    "@types/react-csv": "npm:^1.1.10"
     "@types/react-dom": "npm:^19"
     dotenv-cli: "npm:^8.0.0"
     eslint: "npm:^9"
@@ -3802,8 +3830,10 @@ __metadata:
     prettier: "npm:^3.4.2"
     prisma: "npm:^6.2.1"
     react: "npm:^19.0.0"
+    react-csv: "npm:^2.2.2"
     react-dom: "npm:^19.0.0"
     react-hook-form: "npm:^7.54.2"
+    react-papaparse: "npm:^4.4.0"
     stylelint: "npm:^16.13.2"
     stylelint-config-recess-order: "npm:^5.1.1"
     stylelint-config-standard: "npm:^37.0.0"
@@ -6164,6 +6194,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"papaparse@npm:^5.4.1":
+  version: 5.5.1
+  resolution: "papaparse@npm:5.5.1"
+  checksum: 10c0/32f7b39ef175f9adc8dc5fecddc4b2801a82626149c65463d19cbdcb2e53ce3eb74867c59c50d7169b26082059fad46cef9fbd36178cb7c5c6a714d8c577217d
+  languageName: node
+  linkType: hard
+
 "parent-module@npm:^1.0.0":
   version: 1.0.1
   resolution: "parent-module@npm:1.0.1"
@@ -6574,6 +6611,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-csv@npm:^2.2.2":
+  version: 2.2.2
+  resolution: "react-csv@npm:2.2.2"
+  checksum: 10c0/287e7ba2085a32a0e65d7a19b9e063e43f06f75ab6ebc18bb52b518007a1d6ec5f5ce33fc7c4e290e3ea41cfb251657b6e62aadadc8d7ffcef7e53d43bf3eb69
+  languageName: node
+  linkType: hard
+
 "react-dom@npm:^19.0.0":
   version: 19.0.0
   resolution: "react-dom@npm:19.0.0"
@@ -6612,6 +6656,16 @@ __metadata:
   version: 18.3.1
   resolution: "react-is@npm:18.3.1"
   checksum: 10c0/f2f1e60010c683479e74c63f96b09fb41603527cd131a9959e2aee1e5a8b0caf270b365e5ca77d4a6b18aae659b60a86150bb3979073528877029b35aecd2072
+  languageName: node
+  linkType: hard
+
+"react-papaparse@npm:^4.4.0":
+  version: 4.4.0
+  resolution: "react-papaparse@npm:4.4.0"
+  dependencies:
+    "@types/papaparse": "npm:^5.3.9"
+    papaparse: "npm:^5.4.1"
+  checksum: 10c0/b574beee6d1b1dd409ee9b744244c9e43fc4eea4b495a228c3f2bf4fe7059aa899582e3deef9a1df1a456ad0854116d1ec42d60f0791775d6375f8d2e251985f
   languageName: node
   linkType: hard
 
