@@ -8,6 +8,7 @@ export default function CSVImportWrapper() {
     <CSVReader
       onImport={async (todos) => {
         await Promise.all(todos.map((todo) => createTodo(todo.title)));
+        window.location.reload();
       }}
     />
   );

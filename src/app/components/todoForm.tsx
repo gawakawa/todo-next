@@ -4,39 +4,44 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { TodoFormSchema, TodoFormData } from '../types/Todo';
 import createTodo from '../db/createTodo';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
 
 const TodoForm = () => {
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm<TodoFormData>({
+  const form = useForm<TodoFormData>({
     resolver: zodResolver(TodoFormSchema),
+    defaultValues: {
+      title: '',
+    },
   });
 
   const onSubmit = async (data: TodoFormData) => {
     await createTodo(data.title);
-    reset();
+    form.reset();
+    window.location.reload();
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className='space-y-4'>
-      <div className='flex gap-4'>
-        <input
-          {...register('title')}
-          placeholder='Todo を入力してください'
-          className='flex-1 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent'
-        />
-        <button
-          type='submit'
-          className='px-6 py-3 bg-blue-500 text-white font-medium rounded-lg hover:bg-blue-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2'
-        >
-          追加
-        </button>
-      </div>
-      {errors.title && <span className='block text-sm text-red-500'>{errors.title.message}</span>}
-    </form>
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-4'>
+        <div className='flex gap-4'>
+          <FormField
+            control={form.control}
+            name='title'
+            render={({ field }) => (
+              <FormItem className='flex-1'>
+                <FormControl>
+                  <Input placeholder='Todo を入力してください' {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <Button type='submit'>追加</Button>
+        </div>
+      </form>
+    </Form>
   );
 };
 
