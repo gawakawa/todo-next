@@ -39,7 +39,6 @@ jobs:
 
       - uses: google-github-actions/setup-gcloud@v1
         with:
-          service_account_key: ${{ secrets.GCLOUD_AUTH }}
           project_id: ${{ secrets.PROJECT_ID }}
 
       - run: gcloud auth configure-docker asia-northeast1-docker.pkg.dev
