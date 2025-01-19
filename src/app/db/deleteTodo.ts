@@ -1,8 +1,7 @@
 'use server';
 
-import { PrismaClient, Todo } from '@prisma/client';
-
-const prisma = new PrismaClient();
+import { Todo } from '@prisma/client';
+import { prisma } from '@/lib/prisma';
 
 const deleteTodo = async (id: number): Promise<Todo> => {
   return await prisma.todo.delete({
