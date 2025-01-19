@@ -43,13 +43,15 @@ jobs:
 
       - run: gcloud auth configure-docker asia-northeast1-docker.pkg.dev
 
-      - run: docker build -f docker/prod/Dockerfile -t asia-northeast1-docker.pkg.dev/${{ secrets.PROJECT_ID }}/fullstack-next-images/next-app .
-        env: 
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
-          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
-          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
-          NEXTAUTH_URL: ${{ secrets.NEXTAUTH_URL }}
-          NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
+      - run: |
+          docker build -f docker/prod/Dockerfile \
+          -t asia-northeast1-docker.pkg.dev/${{ secrets.PROJECT_ID }}/fullstack-next-images/next-app \
+          --build-arg DATABASE_URL="${{ secrets.DATABASE_URL }}" \
+          --build-arg NEXTAUTH_URL="${{ secrets.NEXTAUTH_URL }}" \
+          --build-arg NEXTAUTH_SECRET="${{ secrets.NEXTAUTH_SECRET }}" \
+          --build-arg GOOGLE_CLIENT_ID="${{ secrets.GOOGLE_CLIENT_ID }}" \
+          --build-arg GOOGLE_CLIENT_SECRET="${{ secrets.GOOGLE_CLIENT_SECRET }}" \
+          .
 
       - run: docker push asia-northeast1-docker.pkg.dev/${{ secrets.PROJECT_ID }}/fullstack-next-images/next-app
 
