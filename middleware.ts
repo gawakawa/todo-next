@@ -4,15 +4,20 @@ import { NextRequest } from 'next/server';
 import { prisma } from '@/lib/prisma';
 
 export async function middleware(request: NextRequest) {
-  const token = await getToken({ req: request });
   const path = request.nextUrl.pathname;
 
-  const publicPaths = ['/login', '/register'];
-  if (publicPaths.includes(path)) {
-    return NextResponse.next();
-  }
+  const token = await getToken({
+    req: request,
+    secret: process.env.NEXTAUTH_SECRET,
+  });
 
+  // 未認証時の処理
   if (!token) {
+    // /login のみアクセス可能
+    if (path === '/login') {
+      return NextResponse.next();
+    }
+
     return NextResponse.redirect(new URL('/login', request.url));
   }
 
@@ -20,11 +25,18 @@ export async function middleware(request: NextRequest) {
     where: { email: token.email ?? undefined },
   });
 
-  if (!user && path !== '/register') {
+  // 認証済み・未登録時の処理
+  if (!user) {
+    // /register と /login のみアクセス可能
+    if (path in ['/register', '/login']) {
+      return NextResponse.next();
+    }
+    
     return NextResponse.redirect(new URL('/register', request.url));
   }
 
-  if (user && path === '/register') {
+  // 登録済みユーザーは /login にアクセスできない
+  if (user && path === '/login') {
     return NextResponse.redirect(new URL('/dashboard', request.url));
   }
 
