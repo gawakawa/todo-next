@@ -10,12 +10,26 @@ const compat = new FlatCompat({
 })
 
 const eslintConfig = [
+  // jsdoc.configs['flat/recommended'],
+  // {
+  //   files: ['**/*.ts', '**/*.tsx'],
+  //   plugins: {
+  //     jsdoc,
+  //   },
+  //   rules: {
+  //     'jsdoc_require-description': 'warn',
+  //   }
+  // },
   ...compat.config({
+    plugins: [
+      'jsdoc',
+    ],
     extends: [
       'next/core-web-vitals',
       'next/typescript',
       'next',
       'prettier',
+      'plugin:jsdoc/recommended-typescript-error',
     ],
     rules: {
       '@typescript-eslint/no-unused-vars': [
@@ -32,8 +46,63 @@ const eslintConfig = [
           'allowTernary': true,
         },
       ],
+      'jsdoc/require-jsdoc': [
+        'error',
+        {
+          'publicOnly': true,
+          'require': {
+            'ArrowFunctionExpression': true,
+            'ClassDeclaration': true,
+            'ClassExpression': true,
+            'FunctionDeclaration': true,
+            'FunctionExpression': true,
+            'MethodDefinition': true,
+          },
+          'contexts': [
+            'VariableDeclaration',
+            'TSInterfaceDeclaration',
+            'TSTypeAliasDeclaration',
+            'TSPropertySignature',
+            'TSMethodSignature',
+          ],
+        },
+      ],
+      'jsdoc/require-param': [
+        'error',
+        {
+          'checkDestructuredRoots': false,
+        },
+      ],
+      'jsdoc/require-param-description': [
+        'error',
+        {
+          'contexts': [
+            'ArrowFunctionExpression',
+            'ClassDeclaration',
+            'ClassExpression',
+            'FunctionDeclaration',
+            'FunctionExpression',
+            'MethodDefinition',
+            'PropertyDefinition',
+            'VariableDeclaration',
+            'TSInterfaceDeclaration',
+            'TSTypeAliasDeclaration',
+            'TSPropertySignature',
+            'TSMethodSignature',
+          ],
+        },
+      ],
+      'jsdoc/check-tag-names': [
+        'error',
+        {
+          'definedTags': [
+            'typeParam',
+            'remarks',
+          ],
+        }
+      ]
     },
   }),
 ]
 
-export default eslintConfig
+export default eslintConfig;
