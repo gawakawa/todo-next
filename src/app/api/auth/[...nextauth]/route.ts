@@ -1,50 +1,60 @@
-import NextAuth from 'next-auth';
+import NextAuth, { DefaultSession, NextAuthOptions } from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
-import { prisma } from '@/lib/prisma';
 
-export const authOptions = {
+ declare module 'next-auth' {
+   interface Session extends DefaultSession {
+     user: {
+       id: string;
+       email: string;
+     } & DefaultSession['user'];
+   }
+ }
+
+  declare module 'next-auth/jwt' {
+    interface JWT {
+      id: string;
+      email: string;
+    }
+  }
+
+export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
+
+  session: {
+    strategy: 'jwt',
+  },
+
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
     }),
   ],
+
   callbacks: {
-    async jwt({ token, account }) {
-      if (account.provider === 'google') {
-        const dbUser = await prisma.user.findUnique({
-          where: { email: account.email },
-        });
-        token.isRegistered = !!dbUser;
-        token.email = account.email;
+    async jwt({ token, user }) {
+      if (user && user?.email) {
+        token.id = user.id;
+        token.email = user.email;
       }
       return token;
     },
 
-    async signIn({ user }) {
-      if (!user?.email) return false;
-
-      const dbUser = await prisma.user.findUnique({
-        where: { email: user.email },
-      });
-
-      if (!dbUser) {
-        return '/register';
+    async session({ session, token }) {
+      if (session.user) {
+        session.user.email = token.email;
       }
 
-      return '/dashboard';
-    },
-
-    async session({ session, token }) {
-      session.isRegistered = token.isRegistered;
-      session.email = token.email;
       return session;
     },
-  },
-  pages: {
-    signIn: '/login',
-    newUser: '/register',
+
+    async signIn({ account }) {
+      if (!account || account.provider !== 'google') {
+        return false;
+      }
+
+      return true;
+    },
   },
 };
 
