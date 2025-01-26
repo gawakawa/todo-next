@@ -1,14 +1,21 @@
 'use client';
 
 import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 export default function Register() {
-  const { data: session } = useSession();
+  const router = useRouter();
+  const { data, status } = useSession();
+
+  useEffect(() => {
+    status === 'unauthenticated' && router.push('/login');
+  }, [router, status]);
 
   return (
     <div>
       <h1>Register</h1>
-      <pre>{JSON.stringify(session, null, 2)}</pre>
+      <pre>{JSON.stringify(data, null, 2)}</pre>
     </div>
   );
 }

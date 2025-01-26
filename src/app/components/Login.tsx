@@ -9,9 +9,7 @@ const Login = () => {
   const router = useRouter();
 
   useEffect(() => {
-    if (status === 'authenticated') {
-      router.push('/dashboard');
-    }
+    status === 'authenticated' && router.push('/dashboard');
   }, [status, router]);
 
   if (status === 'loading') {

@@ -8,8 +8,13 @@ import LogoutWrapper from '../components/LogoutWrapper';
 import TodoList from '../components/TodoList';
 import DownloadCSV from '../components/DownloadCSV';
 import CSVImportWrapper from '../components/ImportCSVWrapper';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 const DashboardPage = () => {
+  const router = useRouter();
+  const { data, status } = useSession();
+
   const [todos, setTodos] = useState<Todo[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -25,8 +30,10 @@ const DashboardPage = () => {
       }
     };
 
-    fetchTodos();
-  }, []);
+    status === 'unauthenticated' && router.push('/login');
+    status === 'authenticated' && !data.user?.email && router.push('/register');
+    status === 'authenticated' && data.user?.email && fetchTodos();
+  }, [data, router, status]);
 
   return (
     <div className='min-h-screen bg-gray-50'>
