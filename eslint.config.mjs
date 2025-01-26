@@ -59,7 +59,6 @@ const eslintConfig = [
             'MethodDefinition': true,
           },
           'contexts': [
-            'VariableDeclaration',
             'TSInterfaceDeclaration',
             'TSTypeAliasDeclaration',
             'TSPropertySignature',
@@ -84,7 +83,6 @@ const eslintConfig = [
             'FunctionExpression',
             'MethodDefinition',
             'PropertyDefinition',
-            'VariableDeclaration',
             'TSInterfaceDeclaration',
             'TSTypeAliasDeclaration',
             'TSPropertySignature',
@@ -99,8 +97,8 @@ const eslintConfig = [
             'typeParam',
             'remarks',
           ],
-        }
-      ]
+        },
+      ],
     },
   }),
 ]
