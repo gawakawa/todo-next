@@ -10,3 +10,5 @@ export const TodoFormSchema = TodoSchema.pick({ title: true });
 
 export type Todo = z.infer<typeof TodoSchema>;
 export type TodoFormData = z.infer<typeof TodoFormSchema>;
+
+export type SearchFormValues = Pick<Todo, 'title'>;

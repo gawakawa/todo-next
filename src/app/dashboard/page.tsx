@@ -1,23 +1,30 @@
-'use server';
+'use client';
 
-import { getServerSession } from 'next-auth';
-import { authOptions } from '../../lib/auth';
-import { redirect } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import getTodos from './actions/getTodos';
 import TodoForm from './components/TodoForm';
 import LogoutButton from './components/LogoutButton';
 import TodoList from './components/TodoList';
 import DownloadCSV from './components/DownloadCSV';
 import CSVImportWrapper from './components/ImportCSVWrapper';
+import { Todo } from '@prisma/client';
+import SearchForm from './components/SearchForm';
 
-export default async function DashboardPage() {
-  const session = await getServerSession(authOptions);
+export default function DashboardPage() {
+  const [todos, setTodos] = useState<Todo[]>([]);
 
-  if (!session) {
-    redirect('/login');
-  }
+  useEffect(() => {
+    const fetchInitialData = async () => {
+      const initialTodos = await getTodos();
+      setTodos(initialTodos);
+    };
 
-  const todos = await getTodos();
+    fetchInitialData();
+  }, []);
+
+  const handleSearch = (searchResults: Todo[]) => {
+    setTodos(searchResults);
+  };
 
   return (
     <div className='min-h-screen bg-gray-50'>
@@ -31,6 +38,11 @@ export default async function DashboardPage() {
               <CSVImportWrapper />
               <DownloadCSV todos={todos} />
             </div>
+          </div>
+
+          <div className='mb-8'>
+            <h2 className='text-lg font-medium text-gray-900 mb-3'>タスク検索</h2>
+            <SearchForm onSearch={handleSearch} />
           </div>
 
           <div className='mb-8'>
