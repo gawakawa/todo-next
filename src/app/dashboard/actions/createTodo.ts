@@ -1,6 +1,6 @@
 'use server';
 
-import { prisma } from '../../lib/prisma';
+import { prisma } from '../../../lib/prisma';
 
 const createTodo = async (title: string) => {
   return await prisma.todo.create({

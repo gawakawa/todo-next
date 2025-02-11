@@ -1,10 +1,10 @@
-'use client';
+'use server';
 
 import { Todo } from '../types/Todo';
 import { EditTodoDialog } from './EditTodoDialog';
 import { DeleteTodoDialog } from './DeleteTodoDialog';
-import { Checkbox } from '../../components/ui/checkbox';
-import toggleTodo from '../db/toggleTodo';
+import { Checkbox } from '../../../components/ui/checkbox';
+import toggleTodo from '../actions/toggleTodo';
 
 const TodoItem = ({ todo }: { todo: Todo }) => {
   const handleToggle = async () => {

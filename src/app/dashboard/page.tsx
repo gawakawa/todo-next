@@ -1,43 +1,27 @@
-'use client';
+'use server';
 
-import { useState, useEffect } from 'react';
-import getTodos from '../db/getTodos';
-import { Todo } from '../types/Todo';
-import TodoForm from '../components/TodoForm';
-import LogoutWrapper from '../components/LogoutWrapper';
-import TodoList from '../components/TodoList';
-import DownloadCSV from '../components/DownloadCSV';
-import CSVImportWrapper from '../components/ImportCSVWrapper';
-import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '../../lib/auth';
+import { redirect } from 'next/navigation';
+import getTodos from './actions/getTodos';
+import TodoForm from './components/TodoForm';
+import LogoutButton from './components/LogoutButton';
+import TodoList from './components/TodoList';
+import DownloadCSV from './components/DownloadCSV';
+import CSVImportWrapper from './components/ImportCSVWrapper';
 
-const DashboardPage = () => {
-  const router = useRouter();
-  const { data, status } = useSession();
+export default async function DashboardPage() {
+  const session = await getServerSession(authOptions);
 
-  const [todos, setTodos] = useState<Todo[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  if (!session) {
+    redirect('/login');
+  }
 
-  useEffect(() => {
-    const fetchTodos = async () => {
-      try {
-        const data = await getTodos();
-        setTodos(data);
-      } catch (error) {
-        console.error('Failed to fetch todos:', error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    status === 'unauthenticated' && router.push('/login');
-    status === 'authenticated' && !data.user?.email && router.push('/register');
-    status === 'authenticated' && data.user?.email && fetchTodos();
-  }, [data, router, status]);
+  const todos = await getTodos();
 
   return (
     <div className='min-h-screen bg-gray-50'>
-      <LogoutWrapper />
+      <LogoutButton />
 
       <div className='max-w-4xl mx-auto px-4 py-12'>
         <div className='bg-white rounded-xl shadow-lg p-8'>
@@ -54,15 +38,9 @@ const DashboardPage = () => {
             <TodoForm />
           </div>
 
-          {isLoading ? (
-            <div className='text-center py-4'>Loading...</div>
-          ) : (
-            <TodoList todos={todos} />
-          )}
+          <TodoList todos={todos} />
         </div>
       </div>
     </div>
   );
-};
-
-export default DashboardPage;
+}

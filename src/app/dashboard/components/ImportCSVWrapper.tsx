@@ -1,7 +1,7 @@
 'use client';
 
 import CSVReader from './ImportCSV';
-import createTodo from '../db/createTodo';
+import createTodo from '../actions/createTodo';
 
 export default function CSVImportWrapper() {
   return (

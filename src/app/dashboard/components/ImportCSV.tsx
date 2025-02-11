@@ -2,7 +2,7 @@
 
 import { useCSVReader } from 'react-papaparse';
 import { Todo } from '../types/Todo';
-import { Button } from '../../components/ui/button';
+import { Button } from '../../../components/ui/button';
 import { Upload } from 'lucide-react';
 
 type ImportCSVProps = {

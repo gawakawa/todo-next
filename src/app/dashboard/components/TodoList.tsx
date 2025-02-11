@@ -1,4 +1,4 @@
-'use client';
+'use server';
 
 import { Todo } from '../types/Todo';
 import TodoItem from './TodoItem';

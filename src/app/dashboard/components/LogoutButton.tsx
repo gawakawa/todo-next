@@ -1,11 +1,9 @@
 'use client';
 
-import { useSession, signOut } from 'next-auth/react';
+import { signOut } from 'next-auth/react';
 
-const Logout = () => {
-  const { status } = useSession();
-
-  return status === 'authenticated' ? (
+const LogoutButton = () => {
+  return (
     <button
       onClick={() => signOut({ callbackUrl: '/login' })}
       className='flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 rounded-lg border border-gray-200 shadow-sm transition-all duration-200 hover:shadow-md'
@@ -20,7 +18,7 @@ const Logout = () => {
       </svg>
       ログアウト
     </button>
-  ) : null;
+  );
 };
 
-export default Logout;
+export default LogoutButton;

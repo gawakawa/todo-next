@@ -3,16 +3,16 @@
 import { useState } from 'react';
 import { Todo } from '../types/Todo';
 import { Pencil } from 'lucide-react';
-import editTodo from '../db/editTodo';
+import editTodo from '../actions/editTodo';
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '../../components/ui/dialog';
-import { Button } from '../../components/ui/button';
-import { Input } from '../../components/ui/input';
+} from '../../../components/ui/dialog';
+import { Button } from '../../../components/ui/button';
+import { Input } from '../../../components/ui/input';
 
 export function EditTodoDialog({ todo }: { todo: Todo }) {
   const [title, setTitle] = useState(todo.title);

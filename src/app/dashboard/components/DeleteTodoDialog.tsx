@@ -2,7 +2,7 @@
 
 import { Todo } from '../types/Todo';
 import { Trash2 } from 'lucide-react';
-import deleteTodo from '../db/deleteTodo';
+import deleteTodo from '../actions/deleteTodo';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -13,7 +13,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from '../../components/ui/alert-dialog';
+} from '../../../components/ui/alert-dialog';
 
 export function DeleteTodoDialog({ todo }: { todo: Todo }) {
   const handleDelete = async () => {
