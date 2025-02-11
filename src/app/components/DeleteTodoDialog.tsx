@@ -13,7 +13,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from '@/components/ui/alert-dialog';
+} from '../../components/ui/alert-dialog';
 
 export function DeleteTodoDialog({ todo }: { todo: Todo }) {
   const handleDelete = async () => {

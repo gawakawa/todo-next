@@ -3,7 +3,7 @@
 import { Todo } from '../types/Todo';
 import { EditTodoDialog } from './EditTodoDialog';
 import { DeleteTodoDialog } from './DeleteTodoDialog';
-import { Checkbox } from '@/components/ui/checkbox';
+import { Checkbox } from '../../components/ui/checkbox';
 import toggleTodo from '../db/toggleTodo';
 
 const TodoItem = ({ todo }: { todo: Todo }) => {

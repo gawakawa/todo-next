@@ -4,9 +4,9 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { TodoFormSchema, TodoFormData } from '../types/Todo';
 import createTodo from '../db/createTodo';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
+import { Button } from '../../components/ui/button';
+import { Input } from '../../components/ui/input';
+import { Form, FormControl, FormField, FormItem, FormMessage } from '../../components/ui/form';
 
 const TodoForm = () => {
   const form = useForm<TodoFormData>({
