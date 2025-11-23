@@ -11,8 +11,21 @@ export default defineConfig({
       provider: 'v8',
       reporter: ['text', 'json', 'html'],
       reportsDirectory: './coverage',
+      exclude: [
+        'node_modules/',
+        '__tests__/',
+        '*.config.*',
+        '.next/',
+        'src/app/api/**',
+      ],
+      include: ['src/**/*.{ts,tsx}'],
+      thresholds: {
+        lines: 80,
+        functions: 80,
+        branches: 80,
+        statements: 80,
+      },
     },
-    globals: true,
   },
   resolve: {
     alias: {
