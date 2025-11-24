@@ -1,36 +1,88 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# todo-next
 
-## Getting Started
+A Todo application project for learning and experimentation.
 
-First, run the development server:
+## Requirements
+
+- Nix with flakes enabled
+
+## Usage
+
+### Setup
+
+1. Clone the repository and install dependencies:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Set up your database connection in `.env.development.local`:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+DATABASE_URL="mysql://user:password@localhost:3306/todo"
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+3. Initialize the database:
 
-## Learn More
+```bash
+pnpm prisma db push
+```
 
-To learn more about Next.js, take a look at the following resources:
+4. Start the development server:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+pnpm dev
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+5. Open [http://localhost:3000](http://localhost:3000)
 
-## Deploy on Vercel
+### Features
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- User authentication with NextAuth.js
+- Create, read, update, and delete todos
+- Mark todos as complete/incomplete
+- Search and filter todos
+- CSV import/export functionality
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Development
+
+### Commands
+
+```bash
+pnpm dev          # Start development server
+pnpm build        # Build for production
+pnpm start        # Start production server
+pnpm lint         # Run oxlint
+pnpm lint:fix     # Fix linting issues
+pnpm test         # Run tests
+pnpm test:watch   # Run tests in watch mode
+pnpm coverage     # Generate test coverage
+pnpm prisma       # Run Prisma CLI commands
+```
+
+### Tech Stack
+
+- **Framework**: Next.js 15 (App Router)
+- **UI**: React 19, Radix UI, Tailwind CSS
+- **Database**: Prisma + MySQL
+- **Auth**: NextAuth.js
+- **Testing**: Vitest, Testing Library
+- **Linting**: oxlint
+- **Type Safety**: TypeScript
+
+### Project Structure
+
+```
+src/
+├── app/
+│   ├── api/auth/         # NextAuth API routes
+│   ├── dashboard/        # Todo dashboard
+│   ├── login/            # Login page
+│   └── register/         # Registration page
+├── components/ui/        # Reusable UI components
+├── lib/                  # Utilities and configurations
+└── providers/            # React context providers
+
+prisma/
+└── schema.prisma         # Database schema
+```
