@@ -18,13 +18,13 @@ jobs:
         with:
           node-version: '20.x'
       - run: corepack enable
-      - run: yarn install --immutable
+      - run: pnpm install --frozen-lockfile
       - name: format check
-        run: yarn format:check 
+        run: pnpm format:check
       - name: lint
-        run: yarn lint
+        run: pnpm lint
       - name: test
-        run: yarn test
+        run: pnpm test
 
   deploy:
     needs: test

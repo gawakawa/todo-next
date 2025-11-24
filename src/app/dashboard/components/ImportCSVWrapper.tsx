@@ -1,15 +1,15 @@
-'use client';
+"use client";
 
-import CSVReader from './ImportCSV';
-import createTodo from '../actions/createTodo';
+import createTodo from "../actions/createTodo";
+import CSVReader from "./ImportCSV";
 
 export default function CSVImportWrapper() {
-  return (
-    <CSVReader
-      onImport={async (todos) => {
-        await Promise.all(todos.map((todo) => createTodo(todo.title)));
-        window.location.reload();
-      }}
-    />
-  );
+	return (
+		<CSVReader
+			onImport={async (todos) => {
+				await Promise.all(todos.map((todo) => createTodo(todo.title)));
+				window.location.reload();
+			}}
+		/>
+	);
 }
