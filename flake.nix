@@ -63,7 +63,10 @@
           treefmt = {
             programs = {
               nixfmt.enable = true;
-              biome.enable = true;
+              biome = {
+                enable = true;
+                settings.linter.enabled = false;
+              };
             };
           };
         };

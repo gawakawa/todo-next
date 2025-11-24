@@ -19,8 +19,6 @@ jobs:
           node-version: '20.x'
       - run: corepack enable
       - run: pnpm install --frozen-lockfile
-      - name: format check
-        run: pnpm format:check
       - name: lint
         run: pnpm lint
       - name: test
