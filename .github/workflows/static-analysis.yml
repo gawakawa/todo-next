@@ -1,12 +1,11 @@
-name: "CI"
+name: "Static Analysis"
 
 on:
-  push:
-  pull_request:
+  workflow_call:
 
 jobs:
-  ci:
-    name: CI
+  static-analysis:
+    name: Static Analysis
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -21,15 +20,9 @@ jobs:
         run: nix fmt -- --ci
 
       - name: Install dependencies
-        run: | 
+        run: |
           nix profile add .#ci
           pnpm install
 
       - name: Lint check
         run: pnpm lint
-
-      - name: Type check
-        run: pnpm type-check
-
-      - name: Run tests
-        run: pnpm test
