@@ -1,18 +1,18 @@
-'use server';
+"use server";
 
-import { getServerSession } from 'next-auth';
-import Login from './components/Login';
-import { authOptions } from '../../lib/auth';
-import { redirect } from 'next/navigation';
+import { redirect } from "next/navigation";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../../lib/auth";
+import Login from "./components/Login";
 
 const LoginPage = async () => {
-  const session = await getServerSession(authOptions);
+	const session = await getServerSession(authOptions);
 
-  if (session) {
-    redirect('/dashboard');
-  }
+	if (session) {
+		redirect("/dashboard");
+	}
 
-  return <Login />;
+	return <Login />;
 };
 
 export default LoginPage;

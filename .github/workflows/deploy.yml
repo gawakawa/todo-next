@@ -1,52 +1,33 @@
-name: CI/CD
+name: "Deploy"
 
 on:
-  push:
-    branches:
-      - '*'
-  pull_request:
-    branches:
-      - '*'
+  workflow_call:
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '20.x'
-      - run: corepack enable
-      - run: yarn install --immutable
-      - name: format check
-        run: yarn format:check 
-      - name: lint
-        run: yarn lint
-      - name: test
-        run: yarn test
-
   deploy:
-    needs: test
+    name: Deploy
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v5
         with:
           ref: ${{ github.ref }}
 
-      - uses: google-github-actions/auth@v1
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v1
         with:
           credentials_json: "${{ secrets.GCLOUD_AUTH }}"
 
-      - uses: google-github-actions/setup-gcloud@v1
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1
         with:
           project_id: ${{ secrets.PROJECT_ID }}
 
-      - run: gcloud auth configure-docker asia-northeast1-docker.pkg.dev
+      - name: Configure Docker
+        run: gcloud auth configure-docker asia-northeast1-docker.pkg.dev
 
-      - run: |
+      - name: Build Docker image
+        run: |
           docker build -f docker/prod/Dockerfile \
           -t asia-northeast1-docker.pkg.dev/${{ secrets.PROJECT_ID }}/fullstack-next-images/next-app \
           --build-arg DATABASE_URL="${{ secrets.DATABASE_URL }}" \
@@ -56,9 +37,10 @@ jobs:
           --build-arg GOOGLE_CLIENT_SECRET="${{ secrets.GOOGLE_CLIENT_SECRET }}" \
           .
 
-      - run: docker push asia-northeast1-docker.pkg.dev/${{ secrets.PROJECT_ID }}/fullstack-next-images/next-app
+      - name: Push Docker image
+        run: docker push asia-northeast1-docker.pkg.dev/${{ secrets.PROJECT_ID }}/fullstack-next-images/next-app
 
-      - name: Deploy
+      - name: Deploy to Cloud Run
         run: |
           gcloud run deploy next-app \
             --project=${{ secrets.PROJECT_ID }} \

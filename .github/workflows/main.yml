@@ -1,0 +1,23 @@
+name: "CI/CD"
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  static-analysis:
+    name: Static Analysis
+    uses: ./.github/workflows/static-analysis.yml
+    secrets: inherit
+
+  unit-test:
+    name: Unit Test
+    uses: ./.github/workflows/unit-test.yml
+    secrets: inherit
+
+  deploy:
+    name: Deploy
+    needs: [static-analysis, unit-test]
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    uses: ./.github/workflows/deploy.yml
+    secrets: inherit

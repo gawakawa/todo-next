@@ -1,0 +1,25 @@
+name: "Unit Test"
+
+on:
+  workflow_call:
+
+jobs:
+  unit-test:
+    name: Unit Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
+        with:
+          github_access_token: ${{ secrets.GH_TOKEN }}
+
+      - name: Install dependencies
+        run: |
+          nix profile add .#ci
+          pnpm install
+
+      - name: Run tests
+        run: pnpm test
